@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bg-primary: #F5E6C5;   /* light mode padrão */
+  --bg-secondary: #E0C097;
+  --text-primary: #2C1810;
+  --accent: #8B1E3F;
+}
+
+/* 🌑 Tema Dark */
+.theme-dark {
+  --bg-primary: #1E1B16;
+  --bg-secondary: #2D2420;
+  --text-primary: #C19A6B;
+  --accent: #B33F62;
+}
+
+/* 🪄 Tema Fantasia */
+.theme-fantasy {
+  --bg-primary: #2C1A4A;
+  --bg-secondary: #1A1025;
+  --text-primary: #EBDFF6;
+  --accent: #9D4EDD;
+}

@@ -8,8 +8,8 @@
   }
 </script>
 
-<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
-  <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+<div class="flex justify-end items-center vh-100 bg-bg-primary text-text-primary">
+  <div class="vh-100 p-4 w-50 flex flex-column justify-center items-center bg-bg-secondary text-text-primary">
     <h2 class="mb-3">Entrar</h2>
     <div class="mb-3">
       <label class="form-label">Email</label>
@@ -19,6 +19,6 @@
       <label class="form-label">Senha</label>
       <input type="password" bind:value={password} class="form-control" placeholder="Digite sua senha" />
     </div>
-    <button class="btn btn-primary w-100" on:click={login}>Login</button>
+    <button class="btn-primary" on:click={login}>Login</button>
   </div>
 </div>
