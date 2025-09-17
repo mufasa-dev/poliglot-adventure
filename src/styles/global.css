@@ -1,3 +1,6 @@
+@import "./buttons.css";
+@import "./inputs.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +12,13 @@
   --text-primary: #2C1810;
   --accent: #8B1E3F;
 
-  /* Botões */
+  --input-bg: #ffffff;
+  --input-border: #8B1E3F;
+  --input-text: #2C1810;
+  --input-placeholder: #7A6C5D;
+  --input-focus: #A83254;
+
+  /* Botões (já criados antes) */
   --btn-primary-bg: #8B1E3F;
   --btn-primary-text: #ffffff;
   --btn-primary-hover: #A83254;
@@ -25,6 +34,12 @@
   --bg-secondary: #2D2420;
   --text-primary: #C19A6B;
   --accent: #B33F62;
+
+  --input-bg: #2D2420;
+  --input-border: #B33F62;
+  --input-text: #C19A6B;
+  --input-placeholder: #8C7B6E;
+  --input-focus: #D14E78;
 
   --btn-primary-bg: #B33F62;
   --btn-primary-text: #ffffff;
@@ -42,6 +57,12 @@
   --text-primary: #EBDFF6;
   --accent: #9D4EDD;
 
+  --input-bg: #1A1025;
+  --input-border: #9D4EDD;
+  --input-text: #EBDFF6;
+  --input-placeholder: #B09AC9;
+  --input-focus: #B86BFF;
+
   --btn-primary-bg: #9D4EDD;
   --btn-primary-text: #ffffff;
   --btn-primary-hover: #B86BFF;
@@ -49,18 +70,4 @@
   --btn-secondary-bg: #3F37C9;
   --btn-secondary-text: #ffffff;
   --btn-secondary-hover: #2A2496;
-}
-
-.btn-primary {
-  @apply bg-btn-primary text-btn-primary-text px-4 py-2 rounded-lg font-semibold transition;
-}
-.btn-primary:hover {
-  background-color: var(--btn-primary-hover);
-}
-
-.btn-secondary {
-  @apply bg-btn-secondary text-btn-secondary-text px-4 py-2 rounded-lg font-semibold transition;
-}
-.btn-secondary:hover {
-  background-color: var(--btn-secondary-hover);
 }

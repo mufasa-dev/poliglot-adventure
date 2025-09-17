@@ -1,0 +1,29 @@
+.input-base {
+  @apply w-full px-4 py-2 rounded-lg border transition;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border-color: var(--input-border);
+}
+
+.input-base::placeholder {
+  color: var(--input-placeholder);
+}
+
+.input-base:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 2px var(--input-focus);
+}
+
+.select-base {
+  @apply w-full px-4 py-2 rounded-lg border transition appearance-none;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border-color: var(--input-border);
+}
+
+.select-base:focus {
+  outline: none;
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 2px var(--input-focus);
+}

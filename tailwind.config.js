@@ -14,6 +14,13 @@ module.exports = {
         text: {
           primary: "var(--text-primary)",
         },
+        input: {
+          bg: "var(--input-bg)",
+          border: "var(--input-border)",
+          text: "var(--input-text)",
+          placeholder: "var(--input-placeholder)",
+          focus: "var(--input-focus)",
+        },
         accent: "var(--accent)",
         btn: {
           primary: "var(--btn-primary-bg)",
