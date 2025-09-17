@@ -3,9 +3,19 @@
   let email = "";
   let password = "";
 
-  function register() {
-    alert(`Cadastro realizado!\nNome: ${name}\nEmail: ${email}\nSenha: ${password}`);
-    // Aqui depois você chama sua API de registro
+   async function register() {
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password })
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("Cadastro realizado com sucesso!");
+    } else {
+      alert("Erro: " + data.error);
+    }
   }
 </script>
 
@@ -28,7 +38,7 @@
         <a href="/login" class="text-accent hover:underline">
             Já tem conta? Entrar
         </a>
-        </div>
+       </div>
     </div>
   </div>
 </div>
