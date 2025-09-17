@@ -3,24 +3,64 @@
 @tailwind utilities;
 
 :root {
-  --bg-primary: #F5E6C5;   /* light mode padrão */
+  /* Light */
+  --bg-primary: #F5E6C5;
   --bg-secondary: #E0C097;
   --text-primary: #2C1810;
   --accent: #8B1E3F;
+
+  /* Botões */
+  --btn-primary-bg: #8B1E3F;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #A83254;
+
+  --btn-secondary-bg: #3F7CAC;
+  --btn-secondary-text: #ffffff;
+  --btn-secondary-hover: #2F5D73;
 }
 
-/* 🌑 Tema Dark */
+/* 🌑 Dark */
 .theme-dark {
   --bg-primary: #1E1B16;
   --bg-secondary: #2D2420;
   --text-primary: #C19A6B;
   --accent: #B33F62;
+
+  --btn-primary-bg: #B33F62;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #D14E78;
+
+  --btn-secondary-bg: #4A90E2;
+  --btn-secondary-text: #ffffff;
+  --btn-secondary-hover: #357ABD;
 }
 
-/* 🪄 Tema Fantasia */
+/* 🪄 Fantasy */
 .theme-fantasy {
   --bg-primary: #2C1A4A;
   --bg-secondary: #1A1025;
   --text-primary: #EBDFF6;
   --accent: #9D4EDD;
+
+  --btn-primary-bg: #9D4EDD;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #B86BFF;
+
+  --btn-secondary-bg: #3F37C9;
+  --btn-secondary-text: #ffffff;
+  --btn-secondary-hover: #2A2496;
+}
+
+.btn-primary {
+  @apply bg-btn-primary text-btn-primary-text px-4 py-2 rounded-lg font-semibold transition;
+}
+.btn-primary:hover {
+  background-color: var(--btn-primary-hover);
+}
+
+.btn-secondary {
+  @apply bg-btn-secondary text-btn-secondary-text px-4 py-2 rounded-lg font-semibold transition;
+}
+.btn-secondary:hover {
+  background-color: var(--btn-secondary-hover);
 }
