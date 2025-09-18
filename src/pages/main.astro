@@ -1,0 +1,12 @@
+---
+import Navbar from "../components/Navbar.svelte";
+import Sidebar from "../components/Sidebar.svelte";
+---
+
+<Sidebar client:load />
+<div class="flex-grow-1">
+    <Navbar client:load />
+    <main class="p-4">
+        <slot /> <!-- Aqui entram os conteúdos das páginas -->
+    </main>
+</div>

@@ -12,7 +12,7 @@ export async function connectToDatabase() {
   if (!client) {
     client = new MongoClient(uri);
     await client.connect();
-    db = client.db("poliglot_adventure"); // nome do banco
+    db = client.db("poliglot_adventure");
   }
 
   if (!db) {
