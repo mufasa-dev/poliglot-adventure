@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 import { createUser, findUserByEmail } from "../../models/user.model";
 import bcrypt from "bcryptjs";
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const { name, email, password } = await request.json();

@@ -3,7 +3,7 @@
   let email = "";
   let password = "";
 
-  var register = async () => {
+  async function register() {
     console.log('Registering user:', { name, email, password });
     const res = await fetch("/api/register", {
       method: "POST",
@@ -18,10 +18,6 @@
     } else {
       alert("Erro: " + data.error);
     }
-  }
-
-  function test() {
-    console.log("Test function called");
   }
 </script>
 
@@ -38,7 +34,7 @@
       <label for="r-password" class="form-label">Senha</label>
       <input id="r-password" type="password" bind:value={password} class="input-base mb-3" placeholder="Digite sua senha" />
 
-      <button type="button" class="btn-primary w-full" on:click={test}>
+      <button type="button" class="btn-primary w-full" on:click={register}>
         Cadastrar
       </button>
 

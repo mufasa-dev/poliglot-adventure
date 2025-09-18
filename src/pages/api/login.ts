@@ -3,6 +3,8 @@ import { findUserByEmail } from "../../models/user.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+export const prerender = false;
+
 const JWT_SECRET = import.meta.env.JWT_SECRET || "secret-dev"; // ⚠️ trocar em produção
 
 export const POST: APIRoute = async ({ request }) => {
