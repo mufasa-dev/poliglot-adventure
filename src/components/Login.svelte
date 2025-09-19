@@ -11,6 +11,7 @@
 
     const data = await res.json();
     if (res.ok) {
+      localStorage.setItem("token", data.token);
       window.location.href = "/main";
     } else {
       alert("Erro: " + data.error);
