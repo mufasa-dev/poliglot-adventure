@@ -1,8 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Navbar from "../components/Navbar.svelte";
+import Sidebar from "../components/Sidebar.svelte";
 ---
 
 <BaseLayout>
-  <h1>Bem-vindo ao LinguaQuest</h1>
-  <p>Selecione uma opção no menu para começar.</p>
+    <div class="flex">
+      <Sidebar client:load />
+      <div class="flex-1 flex flex-col">
+          <Navbar client:load />
+          <main class="bg-bg-primary p-4 flex-1">
+              <h1>Bem-vindo ao LinguaQuest</h1>
+              <p>Selecione uma opção no menu para começar.</p>
+          </main>
+      </div>
+    </div>
 </BaseLayout>

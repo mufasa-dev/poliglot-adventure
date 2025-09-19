@@ -4,7 +4,6 @@
   let password = "";
 
   async function register() {
-    console.log('Registering user:', { name, email, password });
     const res = await fetch("/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

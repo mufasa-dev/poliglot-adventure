@@ -1,12 +1,15 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
 import Navbar from "../components/Navbar.svelte";
 import Sidebar from "../components/Sidebar.svelte";
 ---
 
-<Sidebar client:load />
-<div class="flex-grow-1">
-    <Navbar client:load />
-    <main class="p-4">
-        <slot /> <!-- Aqui entram os conteúdos das páginas -->
-    </main>
-</div>
+<BaseLayout>
+    <Sidebar client:load />
+    <div class="flex-grow-1">
+        <Navbar client:load />
+        <main class="bg-bg-primary p-4">
+            <slot />
+        </main>
+    </div>
+</BaseLayout>

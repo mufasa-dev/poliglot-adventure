@@ -7,23 +7,49 @@
   });
 </script>
 
-<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 220px; height: 100vh;">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-    <span class="fs-5">Menu</span>
+<div class="flex flex-col p-4 bg-gray-800 text-white w-56 h-screen shadow-lg">
+  <!-- Título -->
+  <a href="/" class="mb-6 text-lg font-semibold tracking-wide hover:text-accent transition-colors">
+    Menu
   </a>
-  <hr />
-  <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-        <a href="/" class="nav-link text-white">Início</a>
+
+  <!-- Navegação -->
+  <ul class="flex flex-col space-y-2">
+    <li>
+      <a
+        href="/"
+        class="block px-3 py-2 rounded-md transition-colors 
+          {currentPath === '/' ? 'bg-accent text-white' : 'hover:bg-gray-700'}"
+      >
+        Início
+      </a>
     </li>
     <li>
-        <a href="/homework" class="nav-link text-white">Exercícios</a>
+      <a
+        href="/homework"
+        class="block px-3 py-2 rounded-md transition-colors 
+          {currentPath === '/homework' ? 'bg-accent text-white' : 'hover:bg-gray-700'}"
+      >
+        Exercícios
+      </a>
     </li>
     <li>
-        <a href="/chat" class="nav-link text-white {currentPath === '/chat' ? 'active' : ''}">Conversas</a>
+      <a
+        href="/chat"
+        class="block px-3 py-2 rounded-md transition-colors 
+          {currentPath === '/chat' ? 'bg-accent text-white' : 'hover:bg-gray-700'}"
+      >
+        Conversas
+      </a>
     </li>
     <li>
-        <a href="/perfil" class="nav-link text-white">Perfil</a>
+      <a
+        href="/perfil"
+        class="block px-3 py-2 rounded-md transition-colors 
+          {currentPath === '/perfil' ? 'bg-accent text-white' : 'hover:bg-gray-700'}"
+      >
+        Perfil
+      </a>
     </li>
   </ul>
 </div>
