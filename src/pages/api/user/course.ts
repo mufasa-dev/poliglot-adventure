@@ -3,6 +3,8 @@ import { ObjectId } from "mongodb";
 import { connectToDatabase } from "../../../lib/db"; // caminho certo pro seu projeto
 import jwt from "jsonwebtoken";
 
+export const prerender = false;
+
 const JWT_SECRET = import.meta.env.JWT_SECRET || "secret";
 
 // Função auxiliar: pegar userId do token
@@ -23,7 +25,7 @@ function getUserIdFromToken(request: Request): string | null {
 export const GET: APIRoute = async ({ request }) => {
   try {
     const userId = getUserIdFromToken(request);
-    console.log("Decoded userId:", userId);
+
     if (!userId) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }

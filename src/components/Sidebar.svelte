@@ -17,14 +17,15 @@
 
     // Verificar curso do usuário
     const res = await fetch("/api/user/course", {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
     });
-    console.log(res);
-    console.log('header', {  Authorization: `Bearer ${token}` })
+
     if (res.ok) {
       const data = await res.json();
       if (!data.course) {
-        showCourseModal = true; // abrir modal se não tiver curso
+        showCourseModal = true;
       }
     } else {
       console.error("Erro ao verificar curso");
