@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      { id: user._id.toString(), email: user.email },
       JWT_SECRET,
       { expiresIn: "1d" }
     );

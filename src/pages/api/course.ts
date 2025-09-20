@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { createCourse, findCoursesByUser } from "../../models/course.model";
 import jwt from "jsonwebtoken";
+import { updateUserCourse } from "../../models/user.model";
 
 export const prerender = false;
 
@@ -50,6 +51,27 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     return new Response(JSON.stringify({ success: true }), { status: 201 });
+  } catch (err) {
+    console.error(err);
+    return new Response(JSON.stringify({ error: "Server error" }), { status: 500 });
+  }
+};
+
+export const PUT: APIRoute = async ({ request }) => {
+  const userId = getUserIdFromRequest(request);
+  if (!userId) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+  }
+
+  try {
+    const { course } = await request.json();
+    if (!course) {
+      return new Response(JSON.stringify({ error: "Course name is required" }), { status: 400 });
+    }
+
+    await updateUserCourse(userId, course);
+
+    return new Response(JSON.stringify({ success: true, course }), { status: 200 });
   } catch (err) {
     console.error(err);
     return new Response(JSON.stringify({ error: "Server error" }), { status: 500 });
