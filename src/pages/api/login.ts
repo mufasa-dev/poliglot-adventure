@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 
 export const prerender = false;
 
-const JWT_SECRET = import.meta.env.JWT_SECRET || "secret-dev"; // ⚠️ trocar em produção
+const JWT_SECRET = import.meta.env.JWT_SECRET || "secret";
 
 export const POST: APIRoute = async ({ request }) => {
   try {
