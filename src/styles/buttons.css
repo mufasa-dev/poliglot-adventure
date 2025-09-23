@@ -5,6 +5,14 @@
   background-color: var(--btn-primary-hover);
 }
 
+.btn-outline-primary {
+  @apply bg-transparent border border-btn-primary text-btn-primary px-4 py-2 rounded-lg font-semibold transition;
+}
+.btn-outline-primary:hover {
+  background-color: var(--btn-primary-hover);
+  color: var(--btn-primary-text);
+}
+
 .btn-secondary {
   @apply bg-btn-secondary text-btn-secondary-text px-4 py-2 rounded-lg font-semibold transition;
 }
