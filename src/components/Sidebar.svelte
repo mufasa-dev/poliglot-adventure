@@ -54,7 +54,7 @@
         return "/courses/fr-fr.png";
       case "ja-jp":
       case "japonês":
-        return "/courses/fr-fr.png";
+        return "/courses/ja-jp.png";
       default:
         return "/courses/pt-br.png";
     }

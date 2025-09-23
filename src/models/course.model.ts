@@ -5,6 +5,7 @@ export interface Course {
   _id?: ObjectId;
   userId: string;
   name: string;
+  details: any;
   createdAt: Date;
 }
 

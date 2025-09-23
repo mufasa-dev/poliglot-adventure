@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { ObjectId } from "mongodb";
-import { connectToDatabase } from "../../../lib/db"; // caminho certo pro seu projeto
+import { connectToDatabase } from "../../../lib/db";
 import jwt from "jsonwebtoken";
 
 export const prerender = false;

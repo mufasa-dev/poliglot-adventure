@@ -3,7 +3,12 @@
 
   let currentPath = "";
   let showCourseModal = false;
+  let activedCourse = null;
+  let myCourses = [];
   let selectedCourse = null;
+  let message = "";
+  let showModal = false;
+  let closeModal = () => {showModal = false;};
   let courses = [ 
     { 
       name: "Inglês", 
@@ -91,7 +96,6 @@
     }
   ];
 
-
   onMount(async () => {
     currentPath = window.location.pathname;
 
@@ -112,15 +116,44 @@
       const data = await res.json();
       if (!data.course) {
         showCourseModal = true;
+      } else {
+        activedCourse = data.course;
       }
     } else {
       console.error("Erro ao verificar curso");
     }
+    await getMyCourses();
   });
+
+  async function getMyCourses() {
+    const token = localStorage.getItem("token");
+
+    const res = await fetch("/api/user/courses", {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (res.ok) {
+      const courses = await res.json();
+      console.log("Cursos do usuário:", courses);
+      myCourses = courses;
+    }
+  }
 
   async function saveCourse() {
     const token = localStorage.getItem("token");
     if (!token || !selectedCourse) return;
+
+    await fetch("/api/user/courses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      body: JSON.stringify({
+        name: selectedCourse.name,
+        details: selectedCourse.asks.map(ask => ({ title: ask.title, answer: ask.answer }))
+      })
+    });
 
     const res = await fetch("/api/user/course", {
       method: "PUT",
@@ -128,14 +161,23 @@
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ course: selectedCourse }),
+      body: JSON.stringify({ course: selectedCourse.name }),
     });
 
     if (res.ok) {
-      showCourseModal = false;
+      showModalMessage("Você esta começando o curso de " + selectedCourse.name + "!");
+      closeModal = () => {
+        showModal = false;
+        window.location.href = "/";
+      };
     } else {
       alert("Erro ao salvar curso");
     }
+  }
+
+  function showModalMessage(msg) {
+    message = msg;
+    showModal = true;
   }
 
   function selectCourse(course) {
@@ -186,3 +228,22 @@
     </div>
   {/if}
 </div>
+
+<!-- Modal de mensagem -->
+{#if showModal}
+  <div class="fixed inset-0 flex items-center justify-center z-50">
+    
+    <!-- Overlay clicável -->
+    <button
+      class="absolute inset-0 bg-black/50"
+      aria-label="Fechar modal"
+      on:click={closeModal}
+    ></button>
+
+    <!-- Conteúdo do modal -->
+    <div class="bg-white p-6 rounded-xl shadow-lg max-w-sm w-full relative" role="dialog" aria-modal="true">
+      <p class="text-gray-800">{message}</p>
+      <button class="mt-4 btn-primary w-full" on:click={closeModal}>Fechar</button>
+    </div>
+  </div>
+{/if}
