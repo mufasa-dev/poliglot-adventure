@@ -143,7 +143,7 @@
   }
 </script>
 
-<div class="p-6 w-full bg-bg-primary flex-1">
+<div class="p-6 w-full bg-bg-primary flex-1 overflow-auto">
   {#if selectedCourse == null}
   <h1 class="text-lg font-semibold">Cursos</h1>
   <p>O quê deseja aprender?</p>

@@ -69,13 +69,13 @@
       </li>
     {/if}
     <li>
-      <a href="/perfil" class="block px-3 py-2 rounded-md transition-colors 
-        {currentPath === '/perfil' ? 'bg-accent text-white' : 'hover:bg-btn-primary hover:text-white'}">
+      <a href="/profile" class="block px-3 py-2 rounded-md transition-colors 
+        {currentPath === '/profile' ? 'bg-accent text-white' : 'hover:bg-btn-primary hover:text-white'}">
         <FontAwesomeIcon icon={faUser} class="w-4 h-4" /> Perfil
       </a>
     </li>
     <li>
-      <button class="block px-3 py-2 rounded-md transition-colors hover:bg-btn-primary hover:text-white" on:click={logout}>
+      <button class="block px-3 py-2 w-full text-left rounded-md transition-colors hover:bg-btn-primary hover:text-white" on:click={logout}>
         <FontAwesomeIcon icon={faDoorOpen} class="w-4 h-4" /> Sair
       </button>
     </li>
