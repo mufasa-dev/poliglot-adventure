@@ -31,3 +31,17 @@ export async function updateUserCourse(userId: string, courseName: string) {
     { $set: { course: courseName } }
   );
 }
+
+export async function findUserById(id: string) {
+  const { db } = await connectToDatabase();
+  return db.collection("users").findOne({ _id: new ObjectId(id) });
+}
+
+export async function updateUserById(id: string, data: any) {
+  const { db } = await connectToDatabase();
+  const result = await db.collection("users").updateOne(
+    { _id: new ObjectId(id) },
+    { $set: data }
+  );
+  return result.matchedCount > 0;
+}
