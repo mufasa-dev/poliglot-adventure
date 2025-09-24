@@ -3,6 +3,8 @@
 Welcome to **PoliglotQuest**, an experimental web application designed to make learning languages more **fun, dynamic, and immersive**! 🚀
 This project combines **modern web development** with **AI-powered exercises and chat simulations** to create an engaging learning experience. 💡
 
+[![My Skills](https://skillicons.dev/icons?i=astro,svelte,ts,html,css,tailwind)](https://skillicons.dev)
+
 ---
 
 ## ✨ Features
