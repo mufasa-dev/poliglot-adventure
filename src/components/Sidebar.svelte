@@ -52,6 +52,9 @@
       case "fr-fr":
       case "francês":
         return "/courses/fr-fr.png";
+      case "it-it":
+      case "italiano":
+        return "/courses/it-it.png";
       case "ja-jp":
       case "japonês":
         return "/courses/ja-jp.png";

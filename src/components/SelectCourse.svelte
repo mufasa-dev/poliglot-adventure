@@ -183,13 +183,31 @@
   function selectCourse(course) {
     selectedCourse = course;
   }
+
+  function isActivedCourse(course) {
+    return activedCourse === course;
+  }
+
+  function getCourseCodeByName(name) {
+    return courses.find(c => c.name === name)?.code || "pt-br";
+  }
 </script>
 
 <div class="p-6 w-full bg-bg-primary flex-1 overflow-auto">
   {#if selectedCourse == null}
-  <h1 class="text-lg font-semibold">Cursos</h1>
-  <p>O quê deseja aprender?</p>
-  <div class="flex flex-col">
+    {#if myCourses != null}
+      <h1 class="text-lg font-semibold">Cursos</h1>
+      <div class="flex flex-col">
+        {#each myCourses as course}
+          <button type="button" class="p-4 btn-outline-primary w-full mb-4 cursor-pointer text-left" on:click={() => selectCourse(course)}>
+            <img src={`/courses/${getCourseCodeByName(course.name)}.png`} alt={course.name} class="h-12 inline-block mr-4" />
+            <h2 class="inline-block text-xl font-semibold">{course.name}</h2>
+          </button>
+        {/each}
+      </div>
+    {/if}
+    <p>Iniciar um novo curso?</p>
+    <div class="flex flex-col">
       {#each courses as course}
         <button type="button" class="p-4 btn-outline-primary w-full mb-4 cursor-pointer text-left" on:click={() => selectCourse(course)}>
           <img src={`/courses/${course.code}.png`} alt={course.name} class="h-12 inline-block mr-4" />
