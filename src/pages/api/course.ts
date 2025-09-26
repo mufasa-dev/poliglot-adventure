@@ -39,7 +39,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
-    const { name } = await request.json();
+    const { name, details } = await request.json();
     if (!name) {
       return new Response(JSON.stringify({ error: "Course name is required" }), { status: 400 });
     }
@@ -47,6 +47,7 @@ export const POST: APIRoute = async ({ request }) => {
     await createCourse({
       userId,
       name,
+      details,
       createdAt: new Date(),
     });
 

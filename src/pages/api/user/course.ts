@@ -1,25 +1,9 @@
 import type { APIRoute } from "astro";
 import { ObjectId } from "mongodb";
+import { getUserIdFromToken } from "../../../lib/auth";
 import { connectToDatabase } from "../../../lib/db";
-import jwt from "jsonwebtoken";
 
 export const prerender = false;
-
-const JWT_SECRET = import.meta.env.JWT_SECRET || "secret";
-
-// Função auxiliar: pegar userId do token
-function getUserIdFromToken(request: Request): string | null {
-  const authHeader = request.headers.get("authorization");
-  if (!authHeader) return null;
-
-  const token = authHeader.replace("Bearer ", "");
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { id: string };
-    return decoded.id;
-  } catch {
-    return null;
-  }
-}
 
 // GET - Retorna o curso ativo do usuário
 export const GET: APIRoute = async ({ request }) => {

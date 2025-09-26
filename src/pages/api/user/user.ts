@@ -1,26 +1,11 @@
 import type { APIRoute } from "astro";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { findUserById, updateUserById } from "../../../models/user.model";
+import { getUserFromToken } from "../../../lib/auth";
 
 export const prerender = false;
 
 const JWT_SECRET = import.meta.env.JWT_SECRET || "secret";
-
-// Função auxiliar para pegar o usuário do token
-async function getUserFromToken(request: Request) {
-  const authHeader = request.headers.get("Authorization");
-  if (!authHeader?.startsWith("Bearer ")) return null;
-
-  const token = authHeader.split(" ")[1];
-  try {
-    const payload = jwt.verify(token, JWT_SECRET) as { id: string; email: string };
-    const user = await findUserById(payload.id);
-    return user;
-  } catch (err) {
-    return null;
-  }
-}
 
 // GET /api/user → retorna o usuário logado
 export const GET: APIRoute = async ({ request }) => {

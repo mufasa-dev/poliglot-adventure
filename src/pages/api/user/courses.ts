@@ -1,26 +1,8 @@
 import type { APIRoute } from "astro";
-import { ObjectId } from "mongodb";
-import { connectToDatabase } from "../../../lib/db"; // caminho certo pro seu projeto
-import jwt from "jsonwebtoken";
 import { createCourse, findCoursesByUser } from "../../../models/course.model";
+import { getUserIdFromToken } from "../../../lib/auth";
 
 export const prerender = false;
-
-const JWT_SECRET = import.meta.env.JWT_SECRET || "secret";
-
-// Função auxiliar: pegar userId do token
-function getUserIdFromToken(request: Request): string | null {
-  const authHeader = request.headers.get("authorization");
-  if (!authHeader) return null;
-
-  const token = authHeader.replace("Bearer ", "");
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET) as { id: string };
-    return decoded.id;
-  } catch {
-    return null;
-  }
-}
 
 // GET /api/user/courses → lista todos os cursos do usuário logado
 export const GET: APIRoute = async ({ request }) => {
