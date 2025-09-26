@@ -184,6 +184,24 @@
       window.location.href = "/";
       return;
     }
+
+    const token = localStorage.getItem("token");
+    if (!token || !course) return;
+
+    const res = await fetch("/api/user/course", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ course: course.name }),
+    });
+
+    if (res.ok) {
+      window.location.href = "/";
+    } else {
+      alert("Erro ao trocar de curso");
+    }
   }
 
   function showModalMessage(msg) {
