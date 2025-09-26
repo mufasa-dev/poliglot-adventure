@@ -96,6 +96,10 @@
     }
   ];
 
+  $: availableCourses = courses.filter(
+    (c) => !myCourses.some((mc) => mc.name === c.name)
+  );
+
   onMount(async () => {
     currentPath = window.location.pathname;
 
@@ -175,6 +179,13 @@
     }
   }
 
+  async function changeCourse(course) {
+    if (isActivedCourse(course.name)) {
+      window.location.href = "/";
+      return;
+    }
+  }
+
   function showModalMessage(msg) {
     message = msg;
     showModal = true;
@@ -184,12 +195,12 @@
     selectedCourse = course;
   }
 
-  function isActivedCourse(course) {
-    return activedCourse === course;
-  }
-
   function getCourseCodeByName(name) {
     return courses.find(c => c.name === name)?.code || "pt-br";
+  }
+
+  function isActivedCourse(course) {
+    return activedCourse === course;
   }
 </script>
 
@@ -199,22 +210,24 @@
       <h1 class="text-lg font-semibold">Cursos</h1>
       <div class="flex flex-col">
         {#each myCourses as course}
-          <button type="button" class="p-4 btn-outline-primary w-full mb-4 cursor-pointer text-left" on:click={() => selectCourse(course)}>
+          <button type="button" class="p-4 w-full mb-4 cursor-pointer text-left {isActivedCourse(course.name) ? "btn-success" : "btn-outline-primary "}" on:click={() => changeCourse(course)}>
             <img src={`/courses/${getCourseCodeByName(course.name)}.png`} alt={course.name} class="h-12 inline-block mr-4" />
             <h2 class="inline-block text-xl font-semibold">{course.name}</h2>
           </button>
         {/each}
       </div>
     {/if}
-    <p>Iniciar um novo curso?</p>
-    <div class="flex flex-col">
-      {#each courses as course}
-        <button type="button" class="p-4 btn-outline-primary w-full mb-4 cursor-pointer text-left" on:click={() => selectCourse(course)}>
-          <img src={`/courses/${course.code}.png`} alt={course.name} class="h-12 inline-block mr-4" />
-          <h2 class="inline-block text-xl font-semibold">{course.name}</h2>
-        </button>
-      {/each}
-    </div>
+    {#if availableCourses.length > 0}
+      <p>Iniciar um novo curso?</p>
+      <div class="flex flex-col">
+        {#each availableCourses as course}
+          <button type="button" class="p-4 btn-outline-primary w-full mb-4 cursor-pointer text-left" on:click={() => selectCourse(course)}>
+            <img src={`/courses/${course.code}.png`} alt={course.name} class="h-12 inline-block mr-4" />
+            <h2 class="inline-block text-xl font-semibold">{course.name}</h2>
+          </button>
+        {/each}
+      </div>
+    {/if}
   {/if}
 
   {#if selectedCourse != null}
