@@ -18,7 +18,6 @@
   --input-placeholder: #7A6C5D;
   --input-focus: #A83254;
 
-  /* Botões (já criados antes) */
   --btn-primary-bg: #8B1E3F;
   --btn-primary-text: #ffffff;
   --btn-primary-hover: #A83254;
@@ -26,6 +25,14 @@
   --btn-secondary-bg: #3F7CAC;
   --btn-secondary-text: #ffffff;
   --btn-secondary-hover: #2F5D73;
+
+   --btn-success: #28A745;
+  --btn-success-text: #ffffff;
+  --btn-success-hover: #218838;
+
+  --btn-warning: #FFC107;
+  --btn-warning-text: #2C1810;
+  --btn-warning-hover: #E0A800;
 }
 
 /* 🌑 Dark */
@@ -48,6 +55,14 @@
   --btn-secondary-bg: #4A90E2;
   --btn-secondary-text: #ffffff;
   --btn-secondary-hover: #357ABD;
+
+  --btn-success: #218838;
+  --btn-success-text: #ffffff;
+  --btn-success-hover: #1E7E34;
+
+  --btn-warning: #E0A800;
+  --btn-warning-text: #1E1B16;
+  --btn-warning-hover: #C69500;
 }
 
 /* 🪄 Fantasy */
@@ -70,4 +85,12 @@
   --btn-secondary-bg: #3F37C9;
   --btn-secondary-text: #ffffff;
   --btn-secondary-hover: #2A2496;
+
+   --btn-success: #4CAF50;
+  --btn-success-text: #ffffff;
+  --btn-success-hover: #388E3C;
+
+  --btn-warning: #FFB703;
+  --btn-warning-text: #2C1A4A;
+  --btn-warning-hover: #E09B00;
 }
