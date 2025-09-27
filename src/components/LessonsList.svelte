@@ -1,4 +1,6 @@
 <script>
+  import { faBook } from "@fortawesome/free-solid-svg-icons";
+  import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome";
   import { onMount } from "svelte";
 
   let lessons = [];
@@ -53,6 +55,11 @@
   }
 
   onMount(loadLessons);
+
+  function createFirstLesson() {
+    // Lógica para criar a primeira lição
+    alert("Função para criar a primeira lição ainda não implementada.");
+  }
 </script>
 
 <div class="p-6 bg-bg-primary flex-1 overflow-auto">
@@ -64,6 +71,9 @@
     <p class="text-red-500">{error}</p>
   {:else if lessons.length === 0}
     <p>Nenhuma lição encontrada para o curso ativo.</p>
+    <button class="btn-success mt-4" on:click={createFirstLesson}>
+      <FontAwesomeIcon icon={faBook} class="w-4 h-4" /> Criar minha primeira lição
+    </button>
   {:else}
     <ul class="space-y-4">
       {#each lessons as lesson}
