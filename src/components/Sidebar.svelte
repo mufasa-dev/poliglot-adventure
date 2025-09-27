@@ -4,7 +4,7 @@
   import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome";
 
   let currentPath = "";
-  let course = "";
+  let course: any = {};
 
   onMount(async () => {
     currentPath = window.location.pathname;
@@ -68,7 +68,7 @@
 <div class="flex flex-col p-4 bg-bg-secondary text-white w-56 h-screen shadow-lg">
   <a href="/select-course" class="block px-3 mb-3 py-2 rounded-md transition-colors 
       {currentPath === '/select-course' ? 'bg-accent text-white' : 'hover:bg-btn-primary'}">
-    <img src="{getFlagCourse(course)}" alt="Logo" class="h-10 mx-auto" />
+    <img src="{getFlagCourse(course.name)}" alt="Logo" class="h-10 mx-auto" />
   </a>
 
   <ul class="flex flex-col space-y-2 text-black">

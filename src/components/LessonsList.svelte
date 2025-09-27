@@ -34,6 +34,7 @@
         error = "Nenhum curso ativo encontrado";
         return;
       }
+      console.log("Curso ativo:", course);
 
       // 🔎 2. Buscar lessons do curso ativo
       const resLessons = await fetch(`/api/lessons?courseId=${course._id}`, {
@@ -56,7 +57,10 @@
 
   onMount(loadLessons);
 
-  function createFirstLesson() {
+  async function createFirstLesson() {
+    
+    console.log("Meu curso:", course);
+
     // Lógica para criar a primeira lição
     alert("Função para criar a primeira lição ainda não implementada.");
   }

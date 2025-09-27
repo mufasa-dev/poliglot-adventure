@@ -5,7 +5,7 @@ import { connectToDatabase } from "../../../lib/db";
 
 export const prerender = false;
 
-// GET - Retorna o curso ativo do usuário
+// GET - Retorna o curso ativo do usuário com os detalhes completos
 export const GET: APIRoute = async ({ request }) => {
   try {
     const userId = getUserIdFromToken(request);
@@ -15,12 +15,27 @@ export const GET: APIRoute = async ({ request }) => {
     }
 
     const { db } = await connectToDatabase();
+
+    // Pega o curso salvo no usuário (apenas o nome)
     const user = await db.collection("users").findOne(
       { _id: new ObjectId(userId) },
       { projection: { course: 1 } }
     );
 
-    return new Response(JSON.stringify({ course: user?.course || null }), {
+    if (!user?.course) {
+      return new Response(JSON.stringify({ course: null }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Agora busca os detalhes completos do curso
+    const course = await db.collection("courses").findOne({
+      name: user.course,
+      userId: userId, // garante que o curso pertence ao usuário
+    });
+
+    return new Response(JSON.stringify({ course }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

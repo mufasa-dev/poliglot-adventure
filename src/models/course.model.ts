@@ -20,3 +20,9 @@ export async function findCoursesByUser(userId: string) {
   const courses = db.collection<Course>("courses");
   return await courses.find({ userId }).toArray();
 }
+
+export async function findCoursesByName(userId: string, name: string) {
+  const { db } = await connectToDatabase();
+  const courses = db.collection<Course>("courses");
+  return await courses.find({ name, userId }).toArray();
+}

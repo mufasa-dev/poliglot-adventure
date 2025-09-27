@@ -218,7 +218,7 @@
   }
 
   function isActivedCourse(course) {
-    return activedCourse === course;
+    return activedCourse.name === course;
   }
 </script>
 
