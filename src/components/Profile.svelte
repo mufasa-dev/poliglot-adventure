@@ -72,7 +72,7 @@
 </script>
 
 <div class="bg-bg-primary flex-1 p-6 overflow-auto">
-  <div class="max-w-lg p-6 bg-white shadow-lg rounded-2xl space-y-4">
+  <div class="md:max-w-lg md:p-6 md:bg-white md:shadow-lg md:rounded-2xl md:space-y-4">
     <h2 class="text-2xl font-bold">Meu Perfil</h2>
 
     <label class="block">
@@ -141,7 +141,7 @@
 
     <button
       on:click={saveProfile}
-      class="w-full btn-primary"
+      class="w-full btn-primary mt-4"
     >
       Salvar Alterações
     </button>
