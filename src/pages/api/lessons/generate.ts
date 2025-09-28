@@ -33,8 +33,10 @@ export const POST: APIRoute = async ({ request }) => {
     });
 
     return new Response(JSON.stringify({ success: true, id: result.insertedId, lesson }), { status: 201 });
-  } catch (err) {
-    console.error(err);
+  } catch (err: any) {
+      if (err.code === "insufficient_quota") {
+      return new Response(JSON.stringify({ error: "Sua conta OpenAI está sem créditos ou acima do limite." }), { status: 500 });
+    }
     return new Response(JSON.stringify({ error: "Erro no servidor" }), { status: 500 });
   }
 };
