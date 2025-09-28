@@ -1,16 +1,23 @@
 <script>
   import { faBook } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome";
+  import LoadingOverlay from "../ui/LoadingOverlay.svelte";
+  import ErrorModal from "../ui/ErrorModal.svelte";
   import { onMount } from "svelte";
+  import { firstLessonPrompt } from "../prompts/lesson";
 
   let lessons = [];
   let course = null;
-  let loading = true;
+  let loading = false;
+  let loadingMessage = "";
+  let loadingLessons = false;
+  let showErrorModal = false;
+  let errorMsg = "";
   let error = "";
 
   async function loadLessons() {
     try {
-      loading = true;
+      loadingLessons = true;
       const token = localStorage.getItem("token");
       if (!token) {
         error = "Usuário não autenticado";
@@ -42,34 +49,63 @@
       });
 
       if (!resLessons.ok) {
+        showErrorModal = true;
         error = "Erro ao carregar lições";
+        errorMsg = error;
         return;
       }
 
       lessons = await resLessons.json();
     } catch (err) {
       console.error(err);
+      showErrorModal = true;
       error = "Erro inesperado";
+      errorMsg = error;
     } finally {
-      loading = false;
+      loadingLessons = false;
     }
   }
 
   onMount(loadLessons);
 
   async function createFirstLesson() {
-    
-    console.log("Meu curso:", course);
+    try {
+      loading = true;
+      loadingMessage = "Gerando sua primeira lição...";
+      errorMsg = "";
+      const token = localStorage.getItem("token");
+      console.log("Meu curso:", course);
+      let prompt = firstLessonPrompt(course);
+      console.log("Prompt para a primeira lição:", prompt);
 
-    // Lógica para criar a primeira lição
-    alert("Função para criar a primeira lição ainda não implementada.");
+      const res = await fetch(`/api/lessons/generate`, {
+        headers: { Authorization: `Bearer ${token}` },
+        method: "POST",
+        body: JSON.stringify({ prompt, courseId: course._id }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        console.log("Lição criada:", data);
+        loadLessons();
+      } else {
+        showErrorModal = true;
+        errorMsg = data.error || "Erro ao criar a lição";
+      }
+    } catch (err) {
+      console.error(err);
+      showErrorModal = true;
+      errorMsg = "Erro ao criar a primeira lição";
+    } finally {
+      loading = false;
+    }
   }
 </script>
 
 <div class="p-6 bg-bg-primary flex-1 overflow-auto">
   <h2 class="text-2xl font-bold mb-4">📚 Minhas Lições</h2>
 
-  {#if loading}
+  {#if loadingLessons}
     <p>Carregando...</p>
   {:else if error}
     <p class="text-red-500">{error}</p>
@@ -89,3 +125,10 @@
     </ul>
   {/if}
 </div>
+<LoadingOverlay show={loading} message={loadingMessage} />
+<ErrorModal 
+  show={showErrorModal} 
+  title="Erro" 
+  message={errorMsg} 
+  onClose={() => showErrorModal = false}
+/>
