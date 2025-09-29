@@ -42,3 +42,48 @@ export async function generateLesson(prompt: string) {
     return null;
   }
 }
+
+export async function generateExercises(prompt: string) {
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [
+      {
+        role: "system",
+        content: "Você é um professor de idiomas especializado em criar exercícios de múltipla escolha. Sempre responda em JSON válido."
+      },
+      {
+        role: "user",
+        content: `
+        Gere uma lista de exercícios para praticar baseado nas informações fornecidas.
+        O JSON deve estar no seguinte formato:
+        {
+          "title": "Título do conjunto de exercícios",
+          "description": "Breve descrição do que será praticado",
+          "content": [
+            {
+              "question": "Pergunta do exercício",
+              "answers": [
+                { "answer": "Alternativa 1", "correct": false },
+                { "answer": "Alternativa 2", "correct": true },
+                { "answer": "Alternativa 3", "correct": false }
+              ]
+            }
+          ]
+        }
+
+        Prompt do usuário:
+        ${prompt}
+        `
+      }
+    ],
+    response_format: { type: "json_object" },
+    temperature: 0.7,
+  });
+
+  try {
+    return JSON.parse(completion.choices[0].message?.content || "{}");
+  } catch (err) {
+    console.error("Erro ao parsear resposta da OpenAI:", err);
+    return null;
+  }
+}
