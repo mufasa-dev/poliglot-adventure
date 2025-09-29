@@ -5,6 +5,8 @@ export interface Lesson {
   _id?: ObjectId;
   title: string;
   description: string;
+  words: string[];
+  level: string;
   content: any[];
   courseId: string;
   userId: string;
