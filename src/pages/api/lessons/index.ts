@@ -35,7 +35,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }
 
-    const { title, description, content, courseId } = await request.json();
+    const { title, description, content, courseId, level, words } = await request.json();
 
     if (!title || !description || !courseId) {
       return new Response(JSON.stringify({ error: "Campos obrigatórios: title, description, courseId" }), { status: 400 });
@@ -44,9 +44,11 @@ export const POST: APIRoute = async ({ request }) => {
     const newLesson = {
       title,
       description,
+      level,
       content: content || [],
       courseId,
       userId,
+      words: [],
       createdAt: new Date(),
     };
 
