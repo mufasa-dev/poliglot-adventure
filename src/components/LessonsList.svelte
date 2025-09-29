@@ -1,6 +1,7 @@
 <script>
   import { faBook } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome";
+  import LessonPlayer from "./LessonPlayer.svelte";
   import LoadingOverlay from "../ui/LoadingOverlay.svelte";
   import ErrorModal from "../ui/ErrorModal.svelte";
   import { onMount } from "svelte";
@@ -8,6 +9,7 @@
   import { getLevelClasses } from "../pages/utils/level.util";
 
   let lessons = [];
+  let selectedLesson = null;
   let course = null;
   let loading = false;
   let loadingMessage = "";
@@ -57,6 +59,7 @@
       }
 
       lessons = await resLessons.json();
+      console.log("Lições carregadas:", lessons);
     } catch (err) {
       console.error(err);
       showErrorModal = true;
@@ -104,7 +107,9 @@
 </script>
 
 <div class="p-6 bg-bg-primary flex-1 overflow-auto">
-  <h2 class="text-2xl font-bold mb-4">📚 Minhas Lições</h2>
+  {#if !selectedLesson}
+    <h2 class="text-2xl font-bold mb-4">📚 Minhas Lições</h2>
+  {/if}
 
   {#if loadingLessons}
     <p>Carregando...</p>
@@ -115,17 +120,25 @@
     <button class="btn-success mt-4" on:click={createFirstLesson}>
       <FontAwesomeIcon icon={faBook} class="w-4 h-4" /> Criar minha primeira lição
     </button>
+  {:else if selectedLesson}
+    <LessonPlayer lesson={selectedLesson} />
   {:else}
     <ul class="space-y-4">
       {#each lessons as lesson}
-        <li class={`p-4 ${getLevelClasses(lesson.level).bg} rounded-lg ${getLevelClasses(lesson.level).hover} cursor-pointer`}>
-          <div class="flex">
-            <h3 class="text-lg font-semibold">{lesson.title}</h3>
-            <div class={`px-2 py-1 ml-auto text-sm font-medium bg-white text-black rounded`}>
-              {lesson.level}
+        <li>
+          <button
+            type="button"
+            class={`w-full text-left p-4 ${getLevelClasses(lesson.level).bg} rounded-lg ${getLevelClasses(lesson.level).hover} cursor-pointer focus:outline-none`}
+            on:click={() => selectedLesson = lesson}
+          >
+            <div class="flex">
+              <h3 class="text-lg font-semibold">{lesson.title}</h3>
+              <div class={`px-2 py-1 ml-auto text-sm font-medium bg-white text-black rounded flex items-center`}>
+                {lesson.level}
+              </div>
             </div>
-          </div>
-          <p class="text-sm">{lesson.description}</p>
+            <p class="text-sm">{lesson.description}</p>
+          </button>
         </li>
       {/each}
     </ul>
