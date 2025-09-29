@@ -5,6 +5,7 @@
   import ErrorModal from "../ui/ErrorModal.svelte";
   import { onMount } from "svelte";
   import { firstLessonPrompt } from "../prompts/lesson";
+  import { getLevelClasses } from "../pages/utils/level.util";
 
   let lessons = [];
   let course = null;
@@ -117,9 +118,14 @@
   {:else}
     <ul class="space-y-4">
       {#each lessons as lesson}
-        <li class="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
-          <h3 class="text-lg font-semibold">{lesson.title}</h3>
-          <p class="text-gray-600 text-sm">{lesson.description}</p>
+        <li class={`p-4 ${getLevelClasses(lesson.level).bg} rounded-lg ${getLevelClasses(lesson.level).hover} cursor-pointer`}>
+          <div class="flex">
+            <h3 class="text-lg font-semibold">{lesson.title}</h3>
+            <div class={`px-2 py-1 ml-auto text-sm font-medium bg-white text-black rounded`}>
+              {lesson.level}
+            </div>
+          </div>
+          <p class="text-sm">{lesson.description}</p>
         </li>
       {/each}
     </ul>
