@@ -1,6 +1,9 @@
 <script>
-import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-solid-svg-icons";
+  import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome";
+  import ProgressBar from "../ui/ProgressBar.svelte";
+  import LoadingOverlay from "../ui/LoadingOverlay.svelte";
+  import ConfirmModal from "../ui/ConfirmModal.svelte";
 
   export let lesson;
   let currentIndex = 0;
@@ -11,8 +14,28 @@ import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-sol
   let pageGenerateExercises = false;
   let pageGenerateNextLesson = false;
   let nextClassSugest = "";
+  let showConfirmReset = false;
+  let loading = false;
+  let loadingMessage = "";
+
+  let wrongAnswers = 0; // contador de erros
+  const maxErrors = 3;  // limite antes de reiniciar
 
   $: currentItem = lesson.content[currentIndex];
+
+  function resetLesson() {
+    currentIndex = 0;
+    showResult = false;
+    wrongAnswers = 0;
+    correctAnswers = 0;
+    scorePercent = 0;
+    // limpa estado de respostas
+    lesson.content.forEach(item => {
+      item.respondida = false;
+      item.selectedAnswer = null;
+      item.isCorrect = null;
+    });
+  }
 
   function selectAnswer(answer) {
     if (currentItem.respondida) return;
@@ -22,6 +45,14 @@ import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-sol
 
     const correctAnswer = currentItem.answers.find(a => a.correct);
     currentItem.isCorrect = correctAnswer?.answer === answer;
+
+    if (!currentItem.isCorrect) {
+      wrongAnswers++;
+      if (wrongAnswers >= maxErrors) {
+        showConfirmReset = true;
+        return;
+      }
+    }
   }
 
   function next() {
@@ -36,8 +67,21 @@ import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-sol
     }
   }
 
+  function backScreen() {
+    window.location.href = "/";
+  }
+
+  function confirmReset() {
+    resetLesson();
+    showConfirmReset = false;
+  }
+
+  function cancelReset() {
+    showConfirmReset = false;
+    backScreen();
+  }
+
   function finish() {
-    // calcula resultados
     const questions = lesson.content.filter(c => c.type === 'ask' || c.type === 'exercise');
     totalQuestions = questions.length;
     correctAnswers = questions.filter(q => q.isCorrect).length;
@@ -46,8 +90,13 @@ import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-sol
   }
 </script>
 
-<div class="max-w-2xl mx-auto md-p-4">
-  <h1 class="text-2xl font-bold mb-2">{lesson.title}</h1>
+<div class="max-w-2xl mx-auto p-4 bg-bg-secondary rounded-lg shadow">
+  <div class="flex items-center gap-2 mb-2">
+    <ProgressBar current={currentIndex} total={lesson.content.length} showLabel={false} />
+    <span class="text-xl">❤️</span>
+    <span class="text-sm text-gray-700">{wrongAnswers}/{maxErrors}</span>
+  </div>
+  <h1 class="text-2xl font-bold mb-2 mt-4">{lesson.title}</h1>
   <p class="text-gray-700 mb-4">{lesson.description}</p>
 
   {#if !showResult}
@@ -86,9 +135,13 @@ import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-sol
     </div>
 
     <div class="flex justify-between">
-        {#if currentIndex > 0}
-        <button on:click={prev} class="btn-secondary" disabled={currentIndex === 0}>
+      {#if currentIndex > 0}
+        <button on:click={prev} class="btn-secondary">
             <FontAwesomeIcon icon={faCaretLeft} class="w-4 h-4" /> Anterior
+        </button>
+      {:else}
+        <button on:click={backScreen} class="btn-secondary">
+            <FontAwesomeIcon icon={faCaretLeft} class="w-4 h-4" /> Voltar
         </button>
       {/if}
 
@@ -103,7 +156,6 @@ import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-sol
       {/if}
     </div>
 
-    <p class="mt-2 text-gray-500 text-sm">Etapa {currentIndex + 1} de {lesson.content.length}</p>
   {:else if pageGenerateExercises}
     <div class="bg-white p-6 rounded-lg shadow text-center">
         <h2 class="text-2xl font-bold mb-4">Exercícios</h2>
@@ -137,14 +189,24 @@ import { faBook, faCaretLeft, faCaretRight, faFlag } from "@fortawesome/free-sol
   {/if}
 </div>
 
+<ConfirmModal
+  show={showConfirmReset}
+  title="Recomeçar a lição?"
+  message="Você errou 3 questões. Deseja recomeçar a lição desde o início?"
+  onConfirm={confirmReset}
+  onCancel={cancelReset}
+/>
+
+<LoadingOverlay show={loading} message={loadingMessage} />
+
 <style>
   .selected {
     @apply bg-btn-success text-btn-success-text;
   }
   .correct {
-    @apply bg-green-500 text-white;
+    @apply bg-green-500 border-green-500 text-white;
   }
   .incorrect {
-    @apply bg-red-500 text-white;
+    @apply bg-red-500 border-red-500 text-white;
   }
 </style>
