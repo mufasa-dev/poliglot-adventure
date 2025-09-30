@@ -30,6 +30,9 @@
         window.location.href = "/select-course";
       }
       course = data.course;
+    } else if (res.status === 401) {
+      logout();
+      return;
     } else {
       console.error("Erro ao verificar curso");
     }

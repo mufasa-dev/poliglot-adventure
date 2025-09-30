@@ -12,22 +12,37 @@
     const data = await res.json();
     if (res.ok) {
       localStorage.setItem("token", data.token);
-      window.location.href = "/main";
+      window.location.href = "/select-course";
     } else {
       alert("Erro: " + data.error);
     }
   }
 </script>
 
-<div class="flex justify-end items-center h-screen bg-bg-primary text-text-primary p-3">
-  <div class="h-full p-4 w-1/2 flex flex-col justify-center items-center bg-bg-secondary text-text-primary rounded-md">
-    <h2 class="mb-3">Entrar</h2>
-    <div class="mb-3">
+<div class="flex justify-center items-center min-h-screen bg-bg-primary text-text-primary p-4">
+  <div
+    class="w-full max-w-md p-6 flex flex-col justify-center items-center bg-bg-secondary text-text-primary rounded-md shadow-lg"
+  >
+    <h2 class="mb-6 text-2xl font-bold">Entrar</h2>
+
+    <div class="w-full">
       <label for="login-email" class="form-label">Email</label>
-      <input id="login-email" type="email" bind:value={email} class="input-base mb-3" placeholder="Digite seu email" />
+      <input
+        id="login-email"
+        type="email"
+        bind:value={email}
+        class="input-base mb-4 w-full"
+        placeholder="Digite seu email"
+      />
 
       <label for="login-password" class="form-label">Senha</label>
-      <input id="login-password" type="password" bind:value={password} class="input-base mb-3" placeholder="Digite sua senha" />
+      <input
+        id="login-password"
+        type="password"
+        bind:value={password}
+        class="input-base mb-4 w-full"
+        placeholder="Digite sua senha"
+      />
 
       <button class="btn-primary w-full" on:click={login}>Login</button>
 
@@ -39,3 +54,4 @@
     </div>
   </div>
 </div>
+
