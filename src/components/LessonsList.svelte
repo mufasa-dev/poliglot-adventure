@@ -121,7 +121,7 @@
       <FontAwesomeIcon icon={faBook} class="w-4 h-4" /> Criar minha primeira lição
     </button>
   {:else if selectedLesson}
-    <LessonPlayer lesson={selectedLesson} />
+    <LessonPlayer lesson={selectedLesson} course={course} />
   {:else}
     <ul class="space-y-4">
       {#each lessons as lesson}

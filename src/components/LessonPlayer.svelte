@@ -6,6 +6,7 @@
   import ConfirmModal from "../ui/ConfirmModal.svelte";
   import ErrorModal from "../ui/ErrorModal.svelte";
   import { exercisesPrompt } from "../prompts/exercise";
+  import { nextLessonPrompt } from "../prompts/lesson";
 
   export let lesson;
   export let course;
@@ -109,7 +110,7 @@
       const res = await fetch(`/api/exercise/generate`, {
         headers: { Authorization: `Bearer ${token}` },
         method: "POST",
-        body: JSON.stringify({ userPrompt: prompt, lessonId: lesson._id, courseId: course._id }),
+        body: JSON.stringify({ userPrompt: prompt, lessonId: lesson._id, courseId: course._id, level: lesson.level }),
       });
 
       const data = await res.json();
@@ -126,6 +127,38 @@
       console.error(err);
       showErrorModal = true;
       errorMsg = "Erro ao criar lista de exercícios";
+    } finally {
+      loading = false;
+    }
+  }
+
+  async function createNextLesson() {
+    try {
+      loading = true;
+      loadingMessage = "Gerando sua próxima lição...";
+      errorMsg = "";
+      const token = localStorage.getItem("token");
+      console.log("Meu curso:", course);
+      let prompt = nextLessonPrompt(course, lesson, nextClassSugest);
+      console.log("Prompt para a lição:", prompt);
+
+      const res = await fetch(`/api/lessons/generate`, {
+        headers: { Authorization: `Bearer ${token}` },
+        method: "POST",
+        body: JSON.stringify({ prompt, courseId: course._id }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        window.location.href = `/`;
+      } else {
+        showErrorModal = true;
+        errorMsg = data.error || "Erro ao criar a lição";
+      }
+    } catch (err) {
+      console.error(err);
+      showErrorModal = true;
+      errorMsg = "Erro ao criar a lição";
     } finally {
       loading = false;
     }
@@ -216,7 +249,7 @@
         <p class="text-gray-700">Gostaria de sugerir um tema para a próxima aula?</p>
         <textarea class="w-full input-base" rows="4" placeholder="" bind:value={nextClassSugest}></textarea>
         <div class="mt-4 flex justify-center gap-4">
-          <button class="btn-success" on:click={() => window.location.href = `/exercise/create?lessonId=${lesson.id}`}>
+          <button class="btn-success" on:click={createNextLesson}>
             <FontAwesomeIcon icon={faBook} class="w-4 h-4" /> Criar aula
           </button>
         </div>
@@ -228,8 +261,8 @@
       <p class="mb-2">Acertou {correctAnswers} de {totalQuestions} questões.</p>
       <p class="text-xl font-semibold">Pontuação: {scorePercent}%</p>
       <button on:click={() => {pageGenerateExercises = true}} class="btn-primary">
-            Próximo <FontAwesomeIcon icon={faCaretRight} class="w-4 h-4" />
-        </button>
+          Próximo <FontAwesomeIcon icon={faCaretRight} class="w-4 h-4" />
+      </button>
     </div>
   {/if}
 </div>
