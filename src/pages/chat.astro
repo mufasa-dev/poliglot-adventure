@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Chat from "../components/Chat.svelte";
+import PersonListComponent from "../components/PersonList.svelte";
 import Navbar from "../components/Navbar.svelte";
 import Sidebar from "../components/Sidebar.svelte";
 ---
@@ -10,10 +10,7 @@ import Sidebar from "../components/Sidebar.svelte";
       <Sidebar client:load />
       <div class="flex-1 flex flex-col">
           <Navbar client:load />
-          <main class="bg-bg-primary p-4 flex-1">
-              <h1>Chat de Conversação</h1>
-              <Chat client:load />
-          </main>
+          <PersonListComponent client:load />
       </div>
     </div>
 </BaseLayout>
