@@ -13,13 +13,13 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }
 
-    const { lessonId, lessonData } = await request.json();
-    if (!lessonId || !lessonData) {
-      return new Response(JSON.stringify({ error: "Campos obrigatórios: lessonId, lessonData" }), { status: 400 });
+    const { lessonId, courseId, userPrompt } = await request.json();
+    if (!lessonId || !userPrompt) {
+      return new Response(JSON.stringify({ error: "Campos obrigatórios: courseId, lessonId, lessonData" }), { status: 400 });
     }
 
     // 🧠 Gera os exercícios via OpenAI
-    const exercisesJson = await generateExercises(lessonData);
+    const exercisesJson = await generateExercises(userPrompt);
     if (!exercisesJson) {
       return new Response(JSON.stringify({ error: "Erro ao gerar exercícios" }), { status: 500 });
     }
@@ -29,6 +29,7 @@ export const POST: APIRoute = async ({ request }) => {
       ...exercisesJson,
       lessonId,
       userId,
+      courseId,
       createdAt: new Date(),
     });
 

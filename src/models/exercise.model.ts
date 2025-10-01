@@ -6,6 +6,7 @@ export interface Exercise {
   _id?: ObjectId;
   title: string;               // Título do conjunto de exercícios
   description: string;         // Breve descrição
+  courseId: string;            // Referência ao curso
   lessonId: string;            // Referência à lição
   userId: string;              // Dono do exercício
   content: ExerciseItem[];     // Lista de exercícios
@@ -36,6 +37,12 @@ export async function findExercisesByUser(userId: string) {
   const { db } = await connectToDatabase();
   const exercises = db.collection<Exercise>("exercises");
   return await exercises.find({ userId }).toArray();
+}
+
+export async function findExerciseByCourse(courseId: string) {
+  const { db } = await connectToDatabase();
+  const exercises = db.collection<Exercise>("exercises");
+  return await exercises.find({ courseId }).toArray();
 }
 
 export async function findExercisesByLesson(lessonId: string) {
