@@ -4,9 +4,9 @@
   import ConfirmModal from "../ui/ConfirmModal.svelte";
   import { onMount } from "svelte";
   import { getLevelClasses } from "../pages/utils/level.util";
-  import ExercisePlayer from "./ExercisePlayer.svelte";
   import { faPlus } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "@fortawesome/svelte-fontawesome";
+  import Chat from "./Chat.svelte";
 
   let course: any = null;
   let loadingPeople = false;
@@ -16,7 +16,7 @@
 
   // Pessoas
   let people: any[] = [];
-  let selectedPerson = null;
+  let selectedPerson: any = null;
   let showCreatePersonModal = false;
   let newPerson = {
     name: "",
@@ -136,29 +136,39 @@
 </script>
 
 <div class="p-6 bg-bg-primary flex-1 overflow-auto">
-  <h2 class="text-2xl font-bold mb-4">🧑‍🤝‍🧑 Pessoas para praticar</h2>
-  <button class="btn-success mb-4" on:click={openCreatePersonModal}>
-    <FontAwesomeIcon icon={faPlus} class="w-4 h-4" /> Criar nova pessoa
-  </button>
+    {#if !selectedPerson} 
+        <h2 class="text-2xl font-bold mb-4">🧑‍🤝‍🧑 Pessoas para praticar</h2>
+        <button class="btn-success mb-4" on:click={openCreatePersonModal}>
+          <FontAwesomeIcon icon={faPlus} class="w-4 h-4" /> Criar nova pessoa
+        </button>
+    {/if}
 
   {#if people.length === 0}
     <p>Nenhuma pessoa encontrada. Crie uma nova acima.</p>
+  {:else if loadingPeople}
+    <p>Carregando...</p>
+  {:else if error}
+    <p class="text-red-500">{error}</p>
+  {:else if selectedPerson}
+    <Chat person={selectedPerson} course={course} on:close={() => selectedPerson = null} />
   {:else}
     <ul class="space-y-4">
       {#each people as person}
-        <li class="btn-outline-primary text-left rounded-lg flex flex-col gap-2">
-          <div class="flex justify-between items-center">
-            <h3 class="text-lg font-semibold">{person.name}</h3>
-            <div class={`px-2 py-1 text-sm font-medium rounded ${getLevelClasses(person.level).bg}`}>
-              {person.level}
-            </div>
-          </div>
-          <p class="text-sm">{person.description}</p>
-          <div class="flex flex-wrap gap-2">
-            {#each person.objectives as obj}
-              <span class="bg-yellow-200 text-black px-2 py-1 rounded text-xs">{obj}</span>
-            {/each}
-          </div>
+        <li>
+            <button class="btn-outline-primary text-left rounded-lg flex flex-col gap-2 w-full" on:click={() => selectedPerson = person}>
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-semibold">{person.name}</h3>
+                    <div class={`px-2 py-1 text-sm font-medium rounded ${getLevelClasses(person.level).bg}`}>
+                    {person.level}
+                    </div>
+                </div>
+                <p class="text-sm">{person.description}</p>
+                <div class="flex flex-wrap gap-2">
+                    {#each person.objectives as obj}
+                    <span class="bg-yellow-200 text-black px-2 py-1 rounded text-xs">{obj}</span>
+                    {/each}
+                </div>
+            </button>
         </li>
       {/each}
     </ul>
