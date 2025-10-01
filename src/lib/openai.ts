@@ -17,16 +17,16 @@ export async function generateLesson(prompt: string) {
         "words":["Palavras ou estruturas ensinadas durante a aula"],
         "level": "nível da lição usando o padrão que se usa nessa lingua",
         "content": [
-          { "type": "message" | "ask" | "exercise", "value": "texto aqui",
+          { "type": "message" | "exercise", "value": "texto aqui",
            "answers":[
-           "aswer":"Caso seja type excercise ou ask com apenas uma resposta válida aparecer a lista de alternativas", 
+           "answer":"Caso seja type excercise aparecer a lista de alternativas", 
            "correct":"resposta correta true se não for a resposta correta não precisa enviar esse parametro"
            ],
            "words":"palavras ensinadas"
           }
         ]
       }
-      
+      A cada 5 itens de conteúdo, insira um exercício (type: "exercise") para revisar o que foi aprendido.
       Prompt do usuário:
       ${prompt}
       ` },
