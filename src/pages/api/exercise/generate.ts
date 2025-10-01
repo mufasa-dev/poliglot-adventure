@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
       return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
     }
 
-    const { lessonId, courseId, userPrompt } = await request.json();
+    const { lessonId, courseId, userPrompt, level } = await request.json();
     if (!lessonId || !userPrompt) {
       return new Response(JSON.stringify({ error: "Campos obrigatórios: courseId, lessonId, lessonData" }), { status: 400 });
     }
@@ -30,6 +30,7 @@ export const POST: APIRoute = async ({ request }) => {
       lessonId,
       userId,
       courseId,
+      level,
       createdAt: new Date(),
     });
 
