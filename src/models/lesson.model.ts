@@ -22,13 +22,13 @@ export async function createLesson(lesson: Lesson) {
 export async function findLessonsByUser(userId: string) {
   const { db } = await connectToDatabase();
   const lessons = db.collection<Lesson>("lessons");
-  return await lessons.find({ userId }).toArray();
+  return await lessons.find({ userId }).sort({ createdAt: -1 }).toArray();
 }
 
 export async function findLessonsByCourse(courseId: string) {
   const { db } = await connectToDatabase();
   const lessons = db.collection<Lesson>("lessons");
-  return await lessons.find({ courseId }).toArray();
+  return await lessons.find({ courseId }).sort({ createdAt: -1 }).toArray();
 }
 
 export async function findLessonById(id: string) {

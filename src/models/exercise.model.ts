@@ -8,6 +8,7 @@ export interface Exercise {
   description: string;         // Breve descrição
   courseId: string;            // Referência ao curso
   lessonId: string;            // Referência à lição
+  level: string;               // Nível da lição
   userId: string;              // Dono do exercício
   content: ExerciseItem[];     // Lista de exercícios
   createdAt: Date;
@@ -42,13 +43,13 @@ export async function findExercisesByUser(userId: string) {
 export async function findExerciseByCourse(courseId: string) {
   const { db } = await connectToDatabase();
   const exercises = db.collection<Exercise>("exercises");
-  return await exercises.find({ courseId }).toArray();
+  return await exercises.find({ courseId }).sort({ createdAt: -1 }).toArray();
 }
 
 export async function findExercisesByLesson(lessonId: string) {
   const { db } = await connectToDatabase();
   const exercises = db.collection<Exercise>("exercises");
-  return await exercises.find({ lessonId }).toArray();
+  return await exercises.find({ lessonId }).sort({ createdAt: -1 }).toArray();
 }
 
 export async function findExerciseById(id: string) {
