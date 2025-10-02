@@ -183,9 +183,13 @@
         <p class="text-gray-800">{currentItem.value}</p>
         {#if currentItem.words}
           <div class="mt-2 flex flex-wrap gap-2">
-            {#each currentItem.words as word}
-              <span class="bg-yellow-200 px-2 py-1 rounded">{word}</span>
-            {/each}
+            {#if Array.isArray(currentItem.words)}
+              {#each currentItem.words as word}
+                <span class="bg-yellow-200 px-2 py-1 rounded">{word}</span>
+              {/each}
+            {:else if currentItem.words}
+              <span class="bg-yellow-200 px-2 py-1 rounded">{currentItem.words}</span>
+            {/if}
           </div>
         {/if}
       {:else if currentItem.type === 'ask' || currentItem.type === 'exercise'}

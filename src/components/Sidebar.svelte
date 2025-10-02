@@ -43,9 +43,9 @@
     window.location.href = "/login";
   }
 
-  function getFlagCourse(name: string) {
-    if (!name) return "/courses/pt-br.png";
-    name = name.toLowerCase();
+  function getFlagCourse(course: any) {
+    if (!course || !course.name) return "/courses/pt-br.png";
+    let name = course.name.toLowerCase();
     switch (name) {
       case "en-us":
       case "inglês":
@@ -77,7 +77,7 @@
 <div class="hidden md:flex flex-col p-4 bg-bg-secondary text-white w-56 h-screen shadow-lg">
   <a href="/select-course" class="block px-3 mb-3 py-2 rounded-md transition-colors 
       {currentPath === '/select-course' ? 'bg-accent text-white' : 'hover:bg-btn-primary'}">
-    <img src="{getFlagCourse(course.name)}" alt="Logo" class="h-10 mx-auto" />
+    <img src="{getFlagCourse(course)}" alt="Logo" class="h-10 mx-auto" />
   </a>
 
   <ul class="flex flex-col space-y-2 text-black">
@@ -127,7 +127,7 @@
       
       <a href="/select-course" class="block px-3 mb-3 py-2 rounded-md transition-colors 
           {currentPath === '/select-course' ? 'bg-accent text-white' : 'hover:bg-btn-primary'}">
-        <img src="{getFlagCourse(course.name)}" alt="Logo" class="h-10 mx-auto" />
+        <img src="{getFlagCourse(course)}" alt="Logo" class="h-10 mx-auto" />
       </a>
 
       <ul class="flex flex-col space-y-2 text-black">
