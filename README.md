@@ -1,4 +1,4 @@
-# 🌍 PoliglotQuest – Learn Languages with AI & Gamification 🎮✨
+# 🌍 StudyMe.AI – Learn Languages with AI & Gamification 🎮✨
 
 Welcome to **PoliglotQuest**, an experimental web application designed to make learning languages more **fun, dynamic, and immersive**! 🚀
 This project combines **modern web development** with **AI-powered exercises and chat simulations** to create an engaging learning experience. 💡
@@ -25,21 +25,6 @@ This project combines **modern web development** with **AI-powered exercises and
 * 🗄️ **Database**: MongoDB (with user & course collections)
 * 🔑 **Auth**: JWT (JSON Web Tokens) for secure session handling
 * ☁️ **Deployment**: Works with [Vercel](https://vercel.com/), [Railway](https://railway.app/), or [Render](https://render.com/)
-
----
-
-## 📂 Project Structure
-
-```
-src/
- ├── components/       # Reusable Svelte components (Navbar, Sidebar, Modals...)
- ├── layouts/          # Base layouts with Navbar + Sidebar
- ├── pages/            # Astro pages + API routes
- │   ├── api/          # API endpoints (register, login, user course, etc.)
- ├── models/           # Database models (user, course)
- ├── lib/              # Database connection helpers
- └── styles/           # Tailwind + custom styles (buttons, inputs, themes)
-```
 
 ---
 
