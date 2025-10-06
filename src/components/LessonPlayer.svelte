@@ -18,7 +18,7 @@
   let scorePercent = 0;
   let pageGenerateExercises = false;
   let pageGenerateNextLesson = false;
-  let nextClassSugest = "";
+  let nextClassSugest = lesson.nextLesson || "";
   let showConfirmReset = false;
   let loading = false;
   let loadingMessage = "";

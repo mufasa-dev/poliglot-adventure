@@ -16,6 +16,7 @@ export async function generateLesson(prompt: string) {
         "description": "Breve descrição do que será ensinado. 10 palavras no máximo.",
         "words":["Palavras ou estruturas ensinadas durante a aula"],
         "level": "nível da lição usando o padrão que se usa nessa lingua",
+        "nextLesson": "Sugestão de tema para a próxima lição baseado no conteúdo desta lição",
         "content": [
           { "type": "message" | "exercise", "value": "texto aqui",
            "answers":[

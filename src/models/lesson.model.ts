@@ -7,6 +7,7 @@ export interface Lesson {
   description: string;
   words: string[];
   level: string;
+  nextLesson?: string;
   content: any[];
   courseId: string;
   userId: string;
