@@ -65,22 +65,6 @@ mongod --dbpath ~/data/db
 ```bash
 npm run dev
 ```
-
----
-
-## 🔐 API Endpoints
-
-### 👤 Users
-
-* `POST /api/register` → Register a new user
-* `POST /api/login` → Authenticate and receive a JWT token
-
-### 📘 Courses
-
-* `GET /api/user/cour→ Get the current user’s course
-* `POST /api/course` → Add a new course for the logged-in user
-* `PUT /api/user/course` → Update active course for a user
-
 ---
 
 ## 🎨 Theming
