@@ -33,7 +33,7 @@ This project combines **modern web development** with **AI-powered exercises and
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/linguaquest.git
+git clone https://github.com/mufasa-dev/poliglot-adventure.git
 cd linguaquest
 ```
 
@@ -65,22 +65,6 @@ mongod --dbpath ~/data/db
 ```bash
 npm run dev
 ```
-
----
-
-## 🔐 API Endpoints
-
-### 👤 Users
-
-* `POST /api/register` → Register a new user
-* `POST /api/login` → Authenticate and receive a JWT token
-
-### 📘 Courses
-
-* `GET /api/user/course` → Get the current user’s course
-* `POST /api/course` → Add a new course for the logged-in user
-* `PUT /api/user/course` → Update active course for a user
-
 ---
 
 ## 🎨 Theming
