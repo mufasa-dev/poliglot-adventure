@@ -22,7 +22,6 @@ This project combines **modern web development** with **AI-powered exercises, le
 * 📱 **Responsive Design** – Login, register, and all main screens are mobile-friendly.
 * 🔑 **JWT Token Validation** – Sidebar and protected routes automatically redirect when the token expires.
 * 🌗 **Themes** – Light, dark, and future RPG/fantasy-inspired themes.
-* 🎮 **Gamification Elements** – XP, levels, and progress tracking to keep learning fun.
 
 ---
 
